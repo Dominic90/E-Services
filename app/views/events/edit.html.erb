@@ -1,7 +1,7 @@
-Neues Event!
-
-<%= form_for :event, url: events_path do |f| %>
-
+<h1>Editing event</h1>
+ 
+<%= form_for :event, url: event_path(@event), method: :patch do |f| %>
+ 
   <% if @event.errors.any? %>
     <div id="error_explanation">
       <h2>
@@ -15,7 +15,7 @@ Neues Event!
       </ul>
     </div>
   <% end %>
-
+ 
   <p>
     <%= f.label :title %><br>
     <%= f.text_field :title %>
@@ -29,6 +29,7 @@ Neues Event!
   <p>
     <%= f.submit %>
   </p>
+ 
 <% end %>
-
+ 
 <%= link_to 'Back', events_path %>
