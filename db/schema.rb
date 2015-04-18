@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417205010) do
+ActiveRecord::Schema.define(version: 20150418133537) do
+
+  create_table "connections", force: :cascade do |t|
+    t.string   "ip",         limit: 255
+    t.integer  "port",       limit: 4
+    t.boolean  "used",       limit: 1
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "events", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -19,6 +27,28 @@ ActiveRecord::Schema.define(version: 20150417205010) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
+
+  create_table "feeds", force: :cascade do |t|
+    t.integer  "event_id",      limit: 4
+    t.string   "title",         limit: 255
+    t.integer  "user_id",       limit: 4
+    t.string   "url",           limit: 255
+    t.integer  "connection_id", limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "feeds", ["event_id"], name: "index_feeds_on_event_id", using: :btree
+  add_index "feeds", ["user_id"], name: "index_feeds_on_user_id", using: :btree
+
+  create_table "streams", force: :cascade do |t|
+    t.integer  "feed_id",    limit: 4
+    t.string   "url",        limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "streams", ["feed_id"], name: "index_streams_on_feed_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -38,4 +68,7 @@ ActiveRecord::Schema.define(version: 20150417205010) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "feeds", "events"
+  add_foreign_key "feeds", "users"
+  add_foreign_key "streams", "feeds"
 end
