@@ -29,7 +29,7 @@ var argv = minimist(process.argv.slice(2),
 {
   default:
   {
-    as_uri: "http://localhost:8081/",
+    as_uri: "http://localhost:8080/",
     ws_uri: "ws://localhost:8888/kurento"
   }
 });

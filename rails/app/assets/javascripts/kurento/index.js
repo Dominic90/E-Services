@@ -13,7 +13,7 @@
  *
  */
 
-var ws = new WebSocket('ws://' + '192.168.178.30:8080' + '/call');
+var ws = new WebSocket('ws://' + '192.168.2.5:8080' + '/call');
 var video;
 var webRtcPeer;
 

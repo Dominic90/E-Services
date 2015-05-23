@@ -8,9 +8,9 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+public class ServerTest {
 	public static void main(String[] args) {
-	 	Server server = new Server();
+	 	ServerTest server = new ServerTest();
 	 	try {
 	 	    server.test();
 	  	} catch (IOException e) {
@@ -19,12 +19,14 @@ public class Server {
     }
 	
 	public void test() throws IOException {
-	 	int port = 11111;
-	 	ServerSocket serverSocket = new ServerSocket(port);
-	 	Socket client = warteAufAnmeldung(serverSocket);
-	 	String nachricht = leseNachricht(client);
-	 	System.out.println(nachricht);
-	 	schreibeNachricht(client, nachricht);
+ 		int port = 11111;
+ 		ServerSocket serverSocket = new ServerSocket(port);
+ 		Socket client = warteAufAnmeldung(serverSocket);
+// 		while (true) {
+	 		String nachricht = leseNachricht(client);
+	 		System.out.println(nachricht);
+	 		schreibeNachricht(client, nachricht);	 		
+//	 	}
     }
 	    
 	private Socket warteAufAnmeldung(ServerSocket serverSocket) throws IOException {

@@ -1,5 +1,6 @@
 class Event < ActiveRecord::Base
-	has_many :feeds
+	belongs_to :user
+	belongs_to :connection
 	validates :title, presence: true,
                 	  length: { minimum: 5 }
 end

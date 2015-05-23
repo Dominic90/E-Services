@@ -5,26 +5,11 @@ class EventsController < ApplicationController
 	def index
 		@events = Event.all
 
-		s = TCPSocket.new 'localhost', 11111
-		s.puts "hello"
-		s.puts "world"
-		puts s.gets
-		s.close
-
-		#uri = URI('http://localhost:11111')
-		#req = Net::HTTP::Post.new(uri)
-		#req.set_form_data('from' => '2005-01-01', 'to' => '2005-03-31')
-
-		#res = Net::HTTP.start(uri.hostname, uri.port) do |http|
-		#  http.request(req)
-		#end
-
-		#case res
-		#when Net::HTTPSuccess, Net::HTTPRedirection
-		  # OK
-		#else
-		#  res.value
-		#end
+		#s = TCPSocket.new 'localhost', 11111
+		#s.puts "hello"
+		#s.puts "world"
+		#puts s.gets
+		#s.close
 	end
 
 	def show
@@ -41,7 +26,12 @@ class EventsController < ApplicationController
 
 	def create
 		@event = Event.new(event_params)
- 
+		@event.user_id = current_user.id
+    connection = Connection.where(used: false).first
+ 		@event.connection_id = connection.id
+    connection.used = true
+    connection.save
+
 	 	if @event.save
     		redirect_to @event
 		else

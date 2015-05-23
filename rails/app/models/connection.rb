@@ -1,3 +1,3 @@
 class Connection < ActiveRecord::Base
-	has_one :feed
+	has_one :event
 end
