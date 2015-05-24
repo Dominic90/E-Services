@@ -4,8 +4,8 @@ public class NodeJSController {
 
 	private NodeJSProcess process;
 	
-	public void startNewNodeInstance(int port) {
-		process = new NodeJSProcess(port);
+	public void startNewNodeInstance(String port, String url) {
+		process = new NodeJSProcess(port, url);
 		System.out.println("Starting node");
 		process.start();
 		try {

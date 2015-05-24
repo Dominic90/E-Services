@@ -14,8 +14,10 @@
  */
 
 var myArgs = process.argv.slice(2);
-console.log('Arg0', myArgs[0]);
-var streamingPath = myArgs[0]
+console.log('Arg0', myArgs[0])
+console.log('Arg1', myArgs[1]);
+var streamPort = myArgs[0]
+var streamingPath = myArgs[1]
 
 
 var path = require('path');
@@ -29,7 +31,7 @@ var argv = minimist(process.argv.slice(2),
 {
   default:
   {
-    as_uri: "http://localhost:8080/",
+    as_uri: "http://localhost:" + streamPort + "/",
     ws_uri: "ws://localhost:8888/kurento"
   }
 });

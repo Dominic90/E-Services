@@ -9,14 +9,16 @@ import java.util.logging.Level;
 public class NodeJSProcess {
 
 	private Process process;
-	private int port;
+	private String port;
+	private String url;
 	
-	public NodeJSProcess(int port) {
+	public NodeJSProcess(String port, String url) {
 		this.port = port;
+		this.url = url;
 	}
 	
 	public void start() {
-		ProcessBuilder pb = new ProcessBuilder("node", "/home/dominic/git/E-Services/kurento/server.js", "call");
+		ProcessBuilder pb = new ProcessBuilder("node", "/home/dominic/git/E-Services/kurento/server.js", port, url);
 		
 		try {
 			process = pb.start();
@@ -26,7 +28,6 @@ public class NodeJSProcess {
 				public void run() {
 					setName("Screencapture Thread");
 					InputStreamReader isr = new InputStreamReader(process.getInputStream());
-//					InputStreamReader isr = new InputStreamReader(process.getErrorStream());
 					BufferedReader br = new BufferedReader(isr);
 					try {
 						String line = null;

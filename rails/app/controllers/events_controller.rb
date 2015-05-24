@@ -4,12 +4,6 @@ class EventsController < ApplicationController
 
 	def index
 		@events = Event.all
-
-		#s = TCPSocket.new 'localhost', 11111
-		#s.puts "hello"
-		#s.puts "world"
-		#puts s.gets
-		#s.close
 	end
 
 	def show
@@ -30,6 +24,14 @@ class EventsController < ApplicationController
     connection = Connection.where(used: false).first
  		@event.connection_id = connection.id
     connection.used = true
+
+    s = TCPSocket.new 'localhost', 9999
+		s.puts connection.ip
+		s.puts connection.port
+		s.puts "call"
+		puts s.gets
+		s.close
+
     connection.save
 
 	 	if @event.save

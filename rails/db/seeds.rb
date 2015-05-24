@@ -1,16 +1,30 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
 User.create(email: "dr@mail.com", password: "test1234")
-User.create(email: "ab@mail.com", password: "test1234")
+User.create(email: "t1@mail.com", password: "test1234")
+User.create(email: "t2@mail.com", password: "test1234")
+User.create(email: "t3@mail.com", password: "test1234")
+User.create(email: "t4@mail.com", password: "test1234")
+User.create(email: "t5@mail.com", password: "test1234")
+User.create(email: "t6@mail.com", password: "test1234")
+User.create(email: "t7@mail.com", password: "test1234")
+User.create(email: "t8@mail.com", password: "test1234")
 
 Connection.create(ip: "127.0.0.1", port: 10000, used: false)
 Connection.create(ip: "127.0.0.1", port: 10001, used: false)
 Connection.create(ip: "127.0.0.1", port: 10002, used: false)
 Connection.create(ip: "127.0.0.1", port: 10003, used: false)
 Connection.create(ip: "127.0.0.1", port: 10004, used: false)
+Connection.create(ip: "127.0.0.1", port: 10005, used: false)
+Connection.create(ip: "127.0.0.1", port: 10006, used: false)
+Connection.create(ip: "127.0.0.1", port: 10007, used: false)
+Connection.create(ip: "127.0.0.1", port: 10008, used: false)
+Connection.create(ip: "127.0.0.1", port: 10009, used: false)
+Connection.create(ip: "127.0.0.1", port: 10010, used: false)
+Connection.create(ip: "127.0.0.1", port: 10011, used: false)
+Connection.create(ip: "127.0.0.1", port: 10012, used: false)
+Connection.create(ip: "127.0.0.1", port: 10013, used: false)
+Connection.create(ip: "127.0.0.1", port: 10014, used: false)
+Connection.create(ip: "127.0.0.1", port: 10015, used: false)
+Connection.create(ip: "127.0.0.1", port: 10016, used: false)
+Connection.create(ip: "127.0.0.1", port: 10017, used: false)
+Connection.create(ip: "127.0.0.1", port: 10018, used: false)
+Connection.create(ip: "127.0.0.1", port: 10019, used: false)
