@@ -13,7 +13,9 @@
  *
  */
 
-var ws = new WebSocket('ws://' + '192.168.2.5:8080' + '/call');
+console.log(gon.kurento)
+//var ws = new WebSocket('ws://' + '192.168.178.30:10005' + '/call');
+var ws = new WebSocket('ws://' + gon.kurento);
 var video;
 var webRtcPeer;
 

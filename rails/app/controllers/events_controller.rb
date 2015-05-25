@@ -7,7 +7,15 @@ class EventsController < ApplicationController
 	end
 
 	def show
-    	@event = Event.find(params[:id])
+  	@event = Event.find(params[:id])
+  	@connection = @event.connection
+  	gon.kurento = @connection.ip + ":" + @connection.port.to_s + "/" + @event.url
+  	#gon.push({
+		#	kurento_ip => @connection.ip, 
+		#	kurento_port => @connection.port,
+		#	kurento_url => @event.url
+		#})
+
 	end
 
 	def new
@@ -21,19 +29,22 @@ class EventsController < ApplicationController
 	def create
 		@event = Event.new(event_params)
 		@event.user_id = current_user.id
-    connection = Connection.where(used: false).first
- 		@event.connection_id = connection.id
-    connection.used = true
+    @connection = Connection.where(used: false).first
+ 		@event.connection_id = @connection.id
+    @connection.used = true
 
     s = TCPSocket.new 'localhost', 9999
-		s.puts connection.ip
-		s.puts connection.port
+		s.puts @connection.ip
+		s.puts @connection.port
 		s.puts "call"
+		puts "t1"
 		puts s.gets
+		puts "t2"
 		s.close
 
-    connection.save
+    @connection.save
 
+    @event.url = "call"
 	 	if @event.save
     		redirect_to @event
 		else

@@ -8,7 +8,6 @@ public class Server {
 	public Server() {
 		System.out.println("Main");
 		nodeController = new NodeJSController();
-//		nodeController.startNewNodeInstance(10000);
 		networkController = new NetworkController(nodeController);
 		networkController.start();
 	}
