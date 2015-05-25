@@ -3,8 +3,6 @@ package main;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.util.logging.Level;
 
 public class NodeJSProcess {
 
@@ -12,9 +10,13 @@ public class NodeJSProcess {
 	private String port;
 	private String url;
 	
+	private long startingTime;
+	
 	public NodeJSProcess(String port, String url) {
 		this.port = port;
 		this.url = url;
+		
+		startingTime = System.currentTimeMillis();
 	}
 	
 	public void start() {
@@ -32,9 +34,9 @@ public class NodeJSProcess {
 					try {
 						String line = null;
 						while ((line = br.readLine()) != null) {
-							System.out.println(line);
+							System.out.println("P: " + port + " " + line);
 							if (line.equals("Connection 1 closed")) {
-								process.destroy();
+//								process.destroy();
 								// TODO: inform rails / db
 							}
 						}
@@ -49,14 +51,20 @@ public class NodeJSProcess {
 		}
 	}
 	
-//	public void stop() {
-//		process.destroy();
-////		OutputStream os = process.getOutputStream();
-////		try {
-////			os.write(("q/n".getBytes()));
-////			os.flush();
-////		} catch (IOException e) {
-////			e.printStackTrace();
-////		}
-//	}
+	public boolean isNoLongerActive() {
+		
+		// process is older than an day
+//		if (System.currentTimeMillis() > startingTime + 24 * 60 * 60 * 1000) {
+		if (System.currentTimeMillis() > startingTime + 60 * 1000) { // 1 minute
+			System.out.println("P: " + port + " Process is to old");
+			return true;
+		}
+		// extends to when connection to 1 closed than 1 hour
+		System.out.println("P: " + port + " Process is not old enought");
+		return false;
+	}
+	
+	public void stop() {
+		process.destroy();
+	}
 }

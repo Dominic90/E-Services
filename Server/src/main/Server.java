@@ -6,7 +6,7 @@ public class Server {
 	private NetworkController networkController;
 	
 	public Server() {
-		System.out.println("Main");
+		System.out.println("M: Main");
 		nodeController = new NodeJSController();
 		networkController = new NetworkController(nodeController);
 		networkController.start();
