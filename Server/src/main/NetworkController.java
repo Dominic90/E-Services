@@ -33,12 +33,23 @@ public class NetworkController extends Thread {
 						try {
 							bufferedReader = new BufferedReader(
 							 	 	new InputStreamReader(socket.getInputStream()));
-							String ip = bufferedReader.readLine();
-						 	String port = bufferedReader.readLine();
-						 	String url = bufferedReader.readLine();
-						 	System.out.println(ip + ":" + port + " " + url);
-						 	
-						 	nodeController.startNewNodeInstance(port, url);
+							String type = bufferedReader.readLine();
+							if (type.equals("start node")) {
+								String ip = bufferedReader.readLine();
+								String port = bufferedReader.readLine();
+								String url = bufferedReader.readLine();
+								System.out.println("Start node: " + ip + ":" + port + " " + url);
+								
+								nodeController.startNewNodeInstance(port, url);								
+							}
+							
+							else {
+								String ip = bufferedReader.readLine();
+								String port = bufferedReader.readLine();
+								System.out.println("Stop node: " + ip + ":" + port);
+								
+								nodeController.stopNodeInstance(port);
+							}
 						 	
 						 	bufferedWriter = new BufferedWriter(new OutputStreamWriter(
 						 	 	    socket.getOutputStream()));

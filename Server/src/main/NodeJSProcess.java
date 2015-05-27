@@ -67,4 +67,8 @@ public class NodeJSProcess {
 	public void stop() {
 		process.destroy();
 	}
+	
+	public String getPort() {
+		return port;
+	}
 }

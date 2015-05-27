@@ -34,12 +34,11 @@ class EventsController < ApplicationController
     @connection.used = true
 
     s = TCPSocket.new 'localhost', 9999
+    s.puts "start node"
 		s.puts @connection.ip
 		s.puts @connection.port
 		s.puts "call"
-		puts "t1"
 		puts s.gets
-		puts "t2"
 		s.close
 
     @connection.save
@@ -64,8 +63,18 @@ class EventsController < ApplicationController
 
 	def destroy
 		@event = Event.find(params[:id])
+		connection = @event.connection
 		@event.destroy
- 
+		connection.used = false
+ 		
+		s = TCPSocket.new 'localhost', 9999
+		s.puts "stop node"
+		s.puts connection.ip
+		s.puts connection.port
+		puts s.gets
+		s.close
+
+ 		connection.save
 		redirect_to events_path
 	end
 

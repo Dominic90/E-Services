@@ -28,7 +28,7 @@ public class NodeJSController {
 		        	processes.remove(process);
 		        }
 		    }
-		}, 0, 10, TimeUnit.SECONDS);
+		}, 0, 10, TimeUnit.MINUTES);
 	}
 	
 	public void startNewNodeInstance(String port, String url) {
@@ -36,5 +36,18 @@ public class NodeJSController {
 		processes.add(nodeProcess);
 		System.out.println("P: " + port + " Starting node");
 		nodeProcess.start();
+	}
+	
+	public void stopNodeInstance(String port) {
+		List<NodeJSProcess> oldProcesses = new ArrayList<NodeJSProcess>();
+		for (NodeJSProcess process : processes) {
+        	if (process.getPort().equals(port)) {
+        		process.stop();
+        		oldProcesses.add(process);
+        	}
+        }
+		for (NodeJSProcess process : oldProcesses) {
+        	processes.remove(process);
+        }
 	}
 }
