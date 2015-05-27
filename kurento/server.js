@@ -14,10 +14,9 @@
  */
 
 var myArgs = process.argv.slice(2);
-console.log('Arg0', myArgs[0])
-console.log('Arg1', myArgs[1]);
-var streamPort = myArgs[0]
-var streamingPath = myArgs[1]
+console.log('Args', myArgs[0] + ' ' + myArgs[1]);
+var streamPort = myArgs[0];
+var streamingPath = myArgs[1];
 
 
 var path = require('path');

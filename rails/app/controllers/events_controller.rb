@@ -9,13 +9,9 @@ class EventsController < ApplicationController
 	def show
   	@event = Event.find(params[:id])
   	@connection = @event.connection
+  	puts @connection.ip
+  	puts @connection.port
   	gon.kurento = @connection.ip + ":" + @connection.port.to_s + "/" + @event.url
-  	#gon.push({
-		#	kurento_ip => @connection.ip, 
-		#	kurento_port => @connection.port,
-		#	kurento_url => @event.url
-		#})
-
 	end
 
 	def new

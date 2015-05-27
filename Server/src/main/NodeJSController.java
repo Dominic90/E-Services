@@ -13,22 +13,22 @@ public class NodeJSController {
 	
 	public NodeJSController() {
 		processes = new ArrayList<NodeJSProcess>();
-		deleteOldProcesses.scheduleAtFixedRate(new Runnable() {
-		    @Override
-		    public void run() {
-		    	System.out.println("C: Starting cleanup");
-		    	List<NodeJSProcess> oldProcesses = new ArrayList<NodeJSProcess>();
-		        for (NodeJSProcess process : processes) {
-		        	if (process.isNoLongerActive()) {
-		        		process.stop();
-		        		oldProcesses.add(process);
-		        	}
-		        }
-		        for (NodeJSProcess process : oldProcesses) {
-		        	processes.remove(process);
-		        }
-		    }
-		}, 0, 10, TimeUnit.MINUTES);
+//		deleteOldProcesses.scheduleAtFixedRate(new Runnable() {
+//		    @Override
+//		    public void run() {
+//		    	System.out.println("C: Starting cleanup");
+//		    	List<NodeJSProcess> oldProcesses = new ArrayList<NodeJSProcess>();
+//		        for (NodeJSProcess process : processes) {
+//		        	if (process.isNoLongerActive()) {
+//		        		process.stop();
+//		        		oldProcesses.add(process);
+//		        	}
+//		        }
+//		        for (NodeJSProcess process : oldProcesses) {
+//		        	processes.remove(process);
+//		        }
+//		    }
+//		}, 0, 10, TimeUnit.MINUTES);
 	}
 	
 	public void startNewNodeInstance(String port, String url) {
