@@ -21,6 +21,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<div id="main-container" class="container">
+      <div class="row">
+        <div id="sidebar" class="col-xs-3">
+          Test
+        </div>
+        <div id="content" class="col-xs-9">
+          Test
+        </div>
+      </div>
+    </div>
 	<% if notice %>
 	  <p class="alert alert-success"><%= notice %></p>
 	<% end %>
@@ -39,7 +49,7 @@
 	<% end %>
 	<br>
 
-<%= yield %>
+	<%= yield %>
 
 </body>
 </html>
