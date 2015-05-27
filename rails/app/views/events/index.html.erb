@@ -1,39 +1,51 @@
-<h1>Listing events</h1>
- 
-<%= link_to 'New Event', new_event_path %>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Text</th>
-  </tr>
- 
-  <% @events.each do |event| %>
-    <tr>
-      <td><%= event.title %></td>
-      <td><%= event.description %></td>
-      <td><%= link_to 'Show', event_path(event) %></td>
-      <% if event.user.id == current_user.id %>
-        <td></td>
+<div class="row">
+  <div class="col-md-2">
+    
+  </div>
+  <div class="col-md-8">
+    <h1>Eventübersicht</h1>
+  </div>
+  <div class="col-md-2">
 
-        
-      <% end %>
-    </tr>
-  <% end %>
-</table>
+  </div>
+</div>
 
-<ul class="list-group">
-  <% @events.each do |event| %>
-    <li class="list-group-item">
-      <%= link_to event.title, event_path(event) %>
-      <% if event.user.id == current_user.id %>
-        <p class="pull-right">
-          <%= link_to 'Edit', edit_event_path(event) %>
-          <td><%= link_to 'Destroy', event_path(event),
-                  method: :delete,
-                  data: { confirm: 'Are you sure?' } %></td>
-        </p>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+<div class="row">
+  <div class="col-md-2">
+  </div>
+  <div class="col-md-8">
+    <div class="row">
+      <ul class="list-group">
+        <% @events.each do |event| %>
+          <li class="list-group-item">
+            <%= link_to event.title, event_path(event) %>
+            <% if event.user.id == current_user.id %>
+              <p class="pull-right">
+                <%= link_to edit_event_path(event) do %>
+                  <i class="glyphicon glyphicon-edit"></i>
+                <% end %>
+                <%= link_to event_destroy_path(event), data: { confirm: 'Are you sure?' } do %>
+                  <i class="glyphicon glyphicon-trash"></i>
+                <% end %>
+              </p>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-2">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+  </div>
+  <div class="col-md-8">
+    <%= link_to 'New Event', new_event_path, :class => 'btn btn-default' %>
+  </div>
+  <div class="col-md-2">
+  </div>
+</div>
+

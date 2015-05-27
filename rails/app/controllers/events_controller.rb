@@ -58,7 +58,7 @@ class EventsController < ApplicationController
 	end
 
 	def destroy
-		@event = Event.find(params[:id])
+		@event = Event.find(params[:event_id])
 		connection = @event.connection
 		@event.destroy
 		connection.used = false
