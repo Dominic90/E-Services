@@ -13,11 +13,21 @@
       <td><%= event.title %></td>
       <td><%= event.description %></td>
       <td><%= link_to 'Show', event_path(event) %></td>
-      <td><%= link_to 'Edit', edit_event_path(event) %></td>
+      <% if event.user.id == current_user.id %>
+        <td><%= link_to 'Edit', edit_event_path(event) %></td>
 
-      <td><%= link_to 'Destroy', event_path(event),
-              method: :delete,
-              data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', event_path(event),
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>
+
+<ul class="list-group">
+  <% @events.each do |event| %>
+    <li class="list-group-item">
+      <%= link_to event.title, event_path(event) %>
+    </li>
+  <% end %>
+</ul>
