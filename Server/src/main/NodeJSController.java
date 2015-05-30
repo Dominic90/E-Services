@@ -8,40 +8,43 @@ import java.util.concurrent.TimeUnit;
 
 public class NodeJSController {
 
+	private NetworkController networkController;
+	
 	private List<NodeJSProcess> processes;
 	ScheduledExecutorService deleteOldProcesses = Executors.newSingleThreadScheduledExecutor();
 	
 	public NodeJSController() {
 		processes = new ArrayList<NodeJSProcess>();
-//		deleteOldProcesses.scheduleAtFixedRate(new Runnable() {
-//		    @Override
-//		    public void run() {
-//		    	System.out.println("C: Starting cleanup");
-//		    	List<NodeJSProcess> oldProcesses = new ArrayList<NodeJSProcess>();
-//		        for (NodeJSProcess process : processes) {
-//		        	if (process.isNoLongerActive()) {
-//		        		process.stop();
-//		        		oldProcesses.add(process);
-//		        	}
-//		        }
-//		        for (NodeJSProcess process : oldProcesses) {
-//		        	processes.remove(process);
-//		        }
-//		    }
-//		}, 0, 10, TimeUnit.MINUTES);
+		deleteOldProcesses.scheduleAtFixedRate(new Runnable() {
+		    @Override
+		    public void run() {
+		    	System.out.println("C: Starting cleanup");
+		    	List<NodeJSProcess> oldProcesses = new ArrayList<NodeJSProcess>();
+		        for (NodeJSProcess process : processes) {
+		        	if (process.isNoLongerActive()) {
+		        		process.stop();
+		        		networkController.deleteProcess(process);
+		        		oldProcesses.add(process);
+		        	}
+		        }
+		        for (NodeJSProcess process : oldProcesses) {
+		        	processes.remove(process);
+		        }
+		    }
+		}, 0, 10, TimeUnit.SECONDS);
 	}
 	
-	public void startNewNodeInstance(String port, String url) {
-		NodeJSProcess nodeProcess = new NodeJSProcess(port, url);
+	public void startNewNodeInstance(String eventId, String port, String url) {
+		NodeJSProcess nodeProcess = new NodeJSProcess(eventId, port, url);
 		processes.add(nodeProcess);
 		System.out.println("P: " + port + " Starting node");
 		nodeProcess.start();
 	}
 	
-	public void stopNodeInstance(String port) {
+	public void stopNodeInstance(String eventId) {
 		List<NodeJSProcess> oldProcesses = new ArrayList<NodeJSProcess>();
 		for (NodeJSProcess process : processes) {
-        	if (process.getPort().equals(port)) {
+        	if (process.getEventId().equals(eventId)) {
         		process.stop();
         		oldProcesses.add(process);
         	}
@@ -49,5 +52,9 @@ public class NodeJSController {
 		for (NodeJSProcess process : oldProcesses) {
         	processes.remove(process);
         }
+	}
+	
+	public void setNetworkController(NetworkController networkController) {
+		this.networkController = networkController;
 	}
 }

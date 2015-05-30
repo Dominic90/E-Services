@@ -6,13 +6,18 @@ import java.io.InputStreamReader;
 
 public class NodeJSProcess {
 
+//	24 * 60 * 60 * 1000
+	private static final long maxRunningTimeInMs = 300 * 1000;
+	
 	private Process process;
+	private String eventId;
 	private String port;
 	private String url;
 	
 	private long startingTime;
 	
-	public NodeJSProcess(String port, String url) {
+	public NodeJSProcess(String eventId, String port, String url) {
+		this.eventId = eventId;
 		this.port = port;
 		this.url = url;
 		
@@ -52,10 +57,8 @@ public class NodeJSProcess {
 	}
 	
 	public boolean isNoLongerActive() {
-		
 		// process is older than an day
-//		if (System.currentTimeMillis() > startingTime + 24 * 60 * 60 * 1000) {
-		if (System.currentTimeMillis() > startingTime + 60 * 1000) { // 1 minute
+		if (System.currentTimeMillis() > startingTime + maxRunningTimeInMs) { // 1 minute
 			System.out.println("P: " + port + " Process is to old");
 			return true;
 		}
@@ -65,10 +68,15 @@ public class NodeJSProcess {
 	}
 	
 	public void stop() {
+		System.out.println("P: " + port + " Process stop");
 		process.destroy();
 	}
 	
-	public String getPort() {
-		return port;
+//	public String getPort() {
+//		return port;
+//	}
+	
+	public String getEventId() {
+		return eventId;
 	}
 }

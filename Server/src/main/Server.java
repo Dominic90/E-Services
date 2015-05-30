@@ -1,5 +1,6 @@
 package main;
 
+
 public class Server {
 
 	private NodeJSController nodeController;
@@ -14,6 +15,5 @@ public class Server {
 	
 	public static void main(String args[]) {
 		Server server = new Server();
-		
 	}
 }

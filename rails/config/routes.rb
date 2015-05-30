@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   resources :events do 
     get 'destroy' => 'events#destroy'
+    get 'server_destroy' => 'events#server_destroy'
   end
 
   

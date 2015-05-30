@@ -11,10 +11,13 @@ import java.net.Socket;
 public class NetworkController extends Thread {
 
 	private NodeJSController nodeController;
+	private HttpController httpController;
 	private static final int port = 9999;
 	
 	public NetworkController(NodeJSController nodeController) {
 		this.nodeController = nodeController;
+		this.nodeController.setNetworkController(this);
+		httpController = new HttpController();
 	}
 	
 	@Override
@@ -35,20 +38,20 @@ public class NetworkController extends Thread {
 							 	 	new InputStreamReader(socket.getInputStream()));
 							String type = bufferedReader.readLine();
 							if (type.equals("start node")) {
+								String eventId = bufferedReader.readLine();
 								String ip = bufferedReader.readLine();
 								String port = bufferedReader.readLine();
 								String url = bufferedReader.readLine();
-								System.out.println("Start node: " + ip + ":" + port + " " + url);
+								System.out.println("Start node: " + eventId + " " + ip + ":" + port + " " + url);
 								
-								nodeController.startNewNodeInstance(port, url);								
+								nodeController.startNewNodeInstance(eventId, port, url);								
 							}
 							
 							else {
-								String ip = bufferedReader.readLine();
-								String port = bufferedReader.readLine();
-								System.out.println("Stop node: " + ip + ":" + port);
+								String eventId = bufferedReader.readLine();
+								System.out.println("Stop node: " + eventId);
 								
-								nodeController.stopNodeInstance(port);
+								nodeController.stopNodeInstance(eventId);
 							}
 						 	
 						 	bufferedWriter = new BufferedWriter(new OutputStreamWriter(
@@ -97,5 +100,9 @@ public class NetworkController extends Thread {
 				}
 			}
 		}
+	}
+	
+	public void deleteProcess(NodeJSProcess process) {
+		httpController.deleteEvent(process.getEventId());
 	}
 }
