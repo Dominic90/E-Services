@@ -1,13 +1,11 @@
-package main;
+package nodejs;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class NodeJSProcess {
 
 //	24 * 60 * 60 * 1000
-	private static final long maxRunningTimeInMs = 300 * 1000;
+	private static final long maxRunningTimeInMs = 15 * 1000;
 	
 	private Process process;
 	private String eventId;
@@ -29,28 +27,8 @@ public class NodeJSProcess {
 		
 		try {
 			process = pb.start();
-			new Thread() {
-				
-				@Override
-				public void run() {
-					setName("Screencapture Thread");
-					InputStreamReader isr = new InputStreamReader(process.getInputStream());
-					BufferedReader br = new BufferedReader(isr);
-					try {
-						String line = null;
-						while ((line = br.readLine()) != null) {
-							System.out.println("P: " + port + " " + line);
-							if (line.equals("Connection 1 closed")) {
-//								process.destroy();
-								// TODO: inform rails / db
-							}
-						}
-					}
-					catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}.start();
+			new NodeJSProcessStatusLogger(process, port).start();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -70,11 +48,8 @@ public class NodeJSProcess {
 	public void stop() {
 		System.out.println("P: " + port + " Process stop");
 		process.destroy();
+		System.out.println("P: " + port + " Process stopped");
 	}
-	
-//	public String getPort() {
-//		return port;
-//	}
 	
 	public String getEventId() {
 		return eventId;

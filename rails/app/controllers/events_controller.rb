@@ -32,19 +32,18 @@ class EventsController < ApplicationController
  		@event.connection_id = @connection.id
     @connection.used = true
 
-    s = TCPSocket.new 'localhost', 9999
-    s.puts "start node"
-    s.puts @event.id
-		s.puts @connection.ip
-		s.puts @connection.port
-		s.puts "call"
-		puts s.gets
-		s.close
-
-    @connection.save
-
     @event.url = "call"
 	 	if @event.save
+	 		s = TCPSocket.new 'localhost', 9999
+	    s.puts "start node"
+	    s.puts @event.id
+			s.puts @connection.ip
+			s.puts @connection.port
+			s.puts "call"
+			puts s.gets
+			s.close
+
+    @connection.save
     		redirect_to @event
 		else
     		render 'new'

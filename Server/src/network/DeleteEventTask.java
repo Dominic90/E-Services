@@ -1,4 +1,4 @@
-package main;
+package network;
 
 import java.io.IOException;
 
@@ -8,15 +8,16 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 
-public class HttpController {
+public class DeleteEventTask extends Thread {
 
-//	public static String url = "http://localhost"
+	private String eventId;
 	
-	public HttpController() {
-		// TODO Auto-generated constructor stub
+	public DeleteEventTask(String eventId) {
+		this.eventId = eventId;
 	}
 	
-	public void deleteEvent(String eventId) {
+	@Override
+	public void run() {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet request = new HttpGet("http://localhost:3000/events/" + eventId + "/server_destroy");
 		HttpResponse response;
