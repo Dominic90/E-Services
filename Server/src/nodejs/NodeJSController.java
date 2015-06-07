@@ -39,6 +39,6 @@ public class NodeJSController {
 	
 	public void startProcessStatusSupervisor(NetworkController networkController) {
 		deleteOldProcesses.scheduleAtFixedRate(new ProcessStatusSupervisor(networkController, processes), 
-				0, 10, TimeUnit.SECONDS);
+				0, 1, TimeUnit.MINUTES);
 	}
 }

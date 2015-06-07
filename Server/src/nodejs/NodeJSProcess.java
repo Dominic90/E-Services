@@ -5,7 +5,7 @@ import java.io.IOException;
 public class NodeJSProcess {
 
 //	24 * 60 * 60 * 1000
-	private static final long maxRunningTimeInMs = 15 * 1000;
+	private static final long maxRunningTimeInMs = 300 * 1000;
 	
 	private Process process;
 	private String eventId;
