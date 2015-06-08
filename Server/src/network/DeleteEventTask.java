@@ -19,7 +19,7 @@ public class DeleteEventTask extends Thread {
 	@Override
 	public void run() {
 		HttpClient httpClient = HttpClientBuilder.create().build();
-		HttpGet request = new HttpGet("http://localhost:3000/events/" + eventId + "/server_destroy");
+		HttpGet request = new HttpGet("http://localhost/events/" + eventId + "/server_destroy");
 		HttpResponse response;
 		try {
 			response = httpClient.execute(request);
