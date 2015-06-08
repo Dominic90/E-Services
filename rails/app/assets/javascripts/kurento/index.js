@@ -69,14 +69,31 @@ function viewerResponse(message) {
 function master() {
 	if (!webRtcPeer) {
 		showSpinner(video);
-
-		webRtcPeer = kurentoUtils.WebRtcPeer.startSendOnly(video, function(offerSdp) {
-			var message = {
-				id : 'master',
-				sdpOffer : offerSdp
-			};
-			sendMessage(message);
-		});
+		var res = $("#resolution").val();
+		var width = res.substring(0, res.indexOf("x"));
+		var height = res.substring(res.indexOf("x") + 1);
+		webRtcPeer = kurentoUtils.WebRtcPeer.startSendOnly(
+			video,
+			function(offerSdp) {
+				var message = {
+					id : 'master',
+					sdpOffer : offerSdp
+				};
+				sendMessage(message);
+			},
+			undefined,
+			{
+				audio: true,
+				video: {
+					mandatory: {
+						maxWidth: width,
+						maxHeight: height,
+						maxFrameRate: 15,
+						minFrameRate: 15
+					}
+				}
+			}
+		);
 	}
 }
 

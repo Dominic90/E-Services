@@ -53,6 +53,12 @@
       <a id="call" href="#" class="btn btn-success" onclick="master(); return false;">
         <span class="glyphicon glyphicon-play"> </span> Master 
       </a>
+
+      <select id="resolution">
+        <option>480x320</option>
+        <option>640x480</option>
+        <option>1280x720</option>
+      </select>
     <% end %>
     <% if @event.user.id != current_user.id %>
       <a id="viewer"  href="#" class="btn btn-primary" onclick="viewer(); return false;">

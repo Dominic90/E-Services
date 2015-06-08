@@ -349,6 +349,7 @@ WebRtcPeer.startRecvOnly = function(remoteVideo, onSdp, onError,
  */
 WebRtcPeer.startSendOnly = function(localVideo, onSdp, onError,
 		mediaConstraints, server, options) {
+	console.log("Test: " + mediaConstraints.video.mandatory.maxWidth)
 	return WebRtcPeer.start('send', localVideo, null, onSdp, onError,
 			mediaConstraints, server, options);
 };
