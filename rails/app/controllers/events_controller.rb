@@ -32,19 +32,22 @@ class EventsController < ApplicationController
  		@event.connection_id = @connection.id
     @connection.used = true
 
-    @event.url = "call"
+    o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+		url = (0...50).map { o[rand(o.length)] }.join
+
+    @event.url = url
 	 	if @event.save
 	 		s = TCPSocket.new 'localhost', 9999
 	    s.puts "start node"
 	    s.puts @event.id
 			s.puts @connection.ip
 			s.puts @connection.port
-			s.puts "call"
+			s.puts url
 			puts s.gets
 			s.close
 
-    @connection.save
-    		redirect_to @event
+    	@connection.save
+    	redirect_to @event
 		else
     		render 'new'
 		end
